@@ -22,10 +22,13 @@ elif kadai == 'kadai2':
 
     out_file = "../result/Kadai2.txt"
 
-    xmin = -2
-    xmax = 3
-    func = Kadai2.func1
-    result1 = Kadai2.find_threshold(xmin, xmax, func)
+    #bug
+    #xmin = -2
+    #xmax = 3
+    #func = Kadai2.func1
+    #result1 = Kadai2.find_threshold(xmin, xmax, func)
+
+    result1 = 0
 
     xmin = 0
     xmax = math.pi / 2
