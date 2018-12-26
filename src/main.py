@@ -38,7 +38,22 @@ elif kadai == 'kadai2':
     Kadai2.out_results(result1, result2, out_file)
 
 elif kadai == 'kadai3':
-    out_file = "../result/Kadai3.txt"
+
+    import Kadai3
+
+    out_file = "../result/Kadai3.png"
+
+    v_init = 0.0
+    tmin = 0.0
+    tmax = 2.0
+    h = 0.001
+    circuit = Kadai3.circuit1
+
+    t, v = Kadai3.solve_4d_runge_kutta(v_init, tmin, tmax, h, circuit)
+
+    Kadai3.plot_graph(t, v)
+    Kadai3.save_graph(t, v, out_file)
+
 
 else:
     print("Invaild Option")
