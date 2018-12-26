@@ -40,7 +40,7 @@ def find_threshold(xmin, xmax, func):
     """ v, wの差の絶対値が threshold 以下になる分割数 'N' を10の倍数ごとに探す関数 """
     # FIXME: func1だと、find_threshold関数で Nが100000になっても誤差がthreshold
     # 以下に収まらず、hが増え続けるため誤差が大きくなり、無限ループにはまってしまう
-    
+
     N = 10
     while True:
         v = solve_simpson(xmin, xmax, N, func)
@@ -51,3 +51,10 @@ def find_threshold(xmin, xmax, func):
         N *= 10
 
     return N
+
+
+def out_results(result1, result2, out_file):
+    """ 結果の出力 """
+    with open(out_file, "wt") as fout:
+        print("func1: {result1}", file = fout)
+        print("func2: {result2}", file = fout)
