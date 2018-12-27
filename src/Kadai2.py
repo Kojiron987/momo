@@ -12,17 +12,17 @@ def func2(x):
     return math.cos(x)
 
 
-def solve_simpson(xmin, xmax, N, func):
-    """ 1/3シンプソンの公式を使い、funcの xmin ~ xmax  までの積分を解く
+def solve_simpson(x_start, x_end, N, func):
+    """ 1/3シンプソンの公式を使い、funcの x_start ~ x_end  までの積分を解く
     Nは、分割数を表す"""
 
-    h = (xmax - xmin) / (2 * N)
-    x = xmin
+    h = (x_end - x_start) / (2 * N)
+    x = x_start
 
-    y0 = func(xmin)
+    y0 = func(x_start)
     y_odd = 0
     y_even = 0
-    y2N = func(xmax)
+    y2N = func(x_end)
 
     for i in range(1, N - 1):
         x += h
@@ -38,7 +38,7 @@ def solve_simpson(xmin, xmax, N, func):
 
 def find_threshold(xmin, xmax, func):
     """ v, wの差の絶対値が threshold 以下になる分割数 'N' を10の倍数ごとに探す関数 """
-    # FIXME: func1だと、find_threshold関数で Nが100000になっても誤差がthreshold
+    # BUG: func1だと、find_threshold関数で Nが100000になっても誤差がthreshold
     # 以下に収まらず、hが増え続けるため誤差が大きくなり、無限ループにはまってしまう
 
     N = 10

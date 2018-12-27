@@ -5,7 +5,7 @@ script, kadai = sys.argv
 if kadai == 'kadai1':
     import Kadai1
 
-    out_file = "../resultKadai1.txt"
+    out_file = "../result/Kadai1.txt"
 
     lower = 0
     upper = 10
@@ -30,10 +30,10 @@ elif kadai == 'kadai2':
 
     result1 = 0
 
-    xmin = 0
-    xmax = math.pi / 2
+    x_start = 0
+    x_end = math.pi / 2
     func = Kadai2.func2
-    result2 = Kadai2.find_threshold(xmin, xmax, func)
+    result2 = Kadai2.find_threshold(x_start, x_end, func)
 
     Kadai2.out_results(result1, result2, out_file)
 
@@ -44,12 +44,12 @@ elif kadai == 'kadai3':
     out_file = "../result/Kadai3.png"
 
     v_init = 0.0
-    tmin = 0.0
-    tmax = 2.0
+    t_start = 0.0
+    t_end = 2.0
     h = 0.001
     circuit = Kadai3.circuit1
 
-    t, v = Kadai3.solve_4d_runge_kutta(v_init, tmin, tmax, h, circuit)
+    t, v = Kadai3.solve_4d_runge_kutta(v_init, t_start, t_end, h, circuit)
 
     Kadai3.plot_graph(t, v)
     Kadai3.save_graph(t, v, out_file)

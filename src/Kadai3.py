@@ -13,22 +13,22 @@ def circuit2(t, i):
     return 1 - t
 
 
-def solve_4d_runge_kutta(y0, xmin, xmax, h, equation):
+def solve_4d_runge_kutta(y0, x_start, x_end, h, equation):
     """ 4次のルンゲ・クッタ法で微分方程式を解く
-    y0: x = tminのときの電圧
-    xmin: xの初期値
-    xmax: どこまで計算するか
+    y0: x = tminのときの値
+    x_start: xの初期値
+    x_end: どこまで計算するか
     h: 刻み値
     equation: 計算に使う回路"""
 
-    x = xmin
+    x = x_start
     y = y0
 
     # リストに結果を格納
     x_out = [x]
     y_out = [y]
 
-    while x < xmax:
+    while x < x_end:
 
         k1 = h * equation(x, y)
         k2 = h * equation(x+(h/2), y+(k1/2))
@@ -44,27 +44,21 @@ def solve_4d_runge_kutta(y0, xmin, xmax, h, equation):
     return x_out, y_out
 
 def plot_graph(x_arr, y_arr):
-    import numpy as np
-    import matplotlib.pyplot as plt
 
-    x = np.array(x_arr)
-    y = np.array(y_arr)
+    import matplotlib.pyplot as plt
 
     plt.title("kadai3")
     plt.xlabel("time")
     plt.ylabel("voltage")
-    plt.plot(x, y)
+    plt.plot(x_arr, y_arr)
     plt.show() # グラフにして出力
 
 def save_graph(x_arr, y_arr, out_file):
-    import numpy as np
     import matplotlib.pyplot as plt
 
-    x = np.array(x_arr)
-    y = np.array(y_arr)
 
     plt.title("kadai3")
     plt.xlabel("time")
     plt.ylabel("voltage")
-    plt.plot(x, y)
+    plt.plot(x_arr, y_arr)
     plt.savefig(out_file)

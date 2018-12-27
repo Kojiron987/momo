@@ -1,12 +1,11 @@
-import math
 # voltage and resistances
+E = 15
 
 R0 = 1
 R1 = 4
 R3 = 4
 R4 = 5
 
-E = 15
 
 
 def make_generator(lower, upper, step):
@@ -16,18 +15,44 @@ def make_generator(lower, upper, step):
         yield i
         i += step
 
+def LUDecomposition(matrix, N):
+    """INPUT
+    matrix: the 2-dimentional matrix you want to decompose into L and U matrix
+    the matrix is regarded as square matrix in this function
+    N: the size of matrix
 
+    OUTPUT
+    L, U: the matrixes decomposed from 'matrix' """
+
+
+    # make N*N matrix which elements are 0
+    L = [[0 for i in range(N)] for j in range(N)]
+    U = [[0 for i in range(N)] for j in range(N)]
+    # 対角成分を1にする
+    for n in range(0, N):
+        U[n][n] = 1
+
+    for i in range(N):
+        L[i][0] = matrix[i][0] * U[i][i]
+    for i in range(1, N):
+        U[0][i] = matrix[0][i] / L[0][0]
+
+
+
+
+    return L, U
 
 def solve_wheatstone(lower, upper, step):
-    """ ホイートストンブリッジ回路をLU分解でとく
+    """ ホイートストンブリッジ回路をでとく
     結果をタプルのリストで返す """
     ans = []
     for R2 in make_generator(lower, upper, step):
         # solve Ax = b
         # A: equation_matrix , x: (I1, I2, I3), b: (0, 0, E)
-        equation_matrix = [[R1 + R2 + R0,  -R0,          -R2],
-                          [-R0,            R3 + R4 + R0, -R4],
-                          [-R2,            -R4,           R2 + R4]]
+
+        equation_matrix = ((R1 + R2 + R0,  -R0,          -R2      ),
+                          (-R0,            R3 + R4 + R0, -R4      ),
+                          (-R2,            -R4,           R2 + R4))
         b = [0, 0, E]
 
 
@@ -40,44 +65,3 @@ def out_results(results, out_file, digit = 6):
         for iter in range(len(results)):
             out_str = "R2 {0[0]:>{1}}R : I0 {0[1]:>{1}}A".format(results[iter], digit)
             print(out_str, file = f)
-
-
-
-
-
-def LUPDecompose(A, N, Tol, P):
-    """　行列AをLUP分解する　"""
-
-    for i in range(0, N + 1):
-        P[i] = i
-
-    for i in range(0, N):
-        maxA = 0.0
-        imax = i
-
-        for k in range(i, K):
-            if (absA = math.fabs(A[k][i])) > maxA:
-                maxA = absA
-                imax = k
-
-        #if maxA < Tol: sys.exit() # failure
-
-        if imax != i:
-            # pivoting P
-            j = P[i]
-            P[i] = P[imax]
-            P[imax] = j
-
-            # pivoting rows of A
-            ptr = A[i]
-            A[i] = A[imax]
-            A[imax] = ptr
-
-            # counting pivots starting from N
-            P[N] += 1
-
-        for j in range(i + 1, N):
-            A[j][i] /= A[i][j]
-
-            for k in range(i + 1, N):
-                A[j][k] -= A[ji] * A[i][k]
