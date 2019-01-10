@@ -1,67 +1,41 @@
+import sympy
+
 # voltage and resistances
 E = 15
-
 R0 = 1
 R1 = 4
 R3 = 4
 R4 = 5
 
+# other variables
+I0_list = []
+out_file = "../result/Kadai1.txt"
 
+# register symbols for resolving equation
+I1, I2, I3, R2 = sympy.symbols('I1 I2 I3 R2')
+sympy.init_printing()
 
-def make_generator(lower, upper, step):
-    """ lowerからupperまで、step刻みでジェネレータを作る """
-    i = lower
-    while i <= upper:
-        yield i
-        i += step
+# make generator
+R2_gene = (i / 2 for i in range(0, 21))
 
-def LUDecomposition(matrix, N):
-    """INPUT
-    matrix: the 2-dimentional matrix you want to decompose into L and U matrix
-    the matrix is regarded as square matrix in this function
-    N: the size of matrix
+for R2 in R2_gene:
+    # assign electorical resistance to R2
+    expr1 = (R1 + R2 + R0) * I1 - R0 * I2 - R2 * I3
+    expr2 = -R0 * I1 + (R3 + R4 + R0) * I2 - R4 * I3
+    expr3 = -R2 * I1 - R4 * I2 + (R2 + R4) * I3 - E
 
-    OUTPUT
-    L, U: the matrixes decomposed from 'matrix' """
+    # solve equation
+    ans = sympy.solve([expr1, expr2, expr3], [I1, I2, I3])
 
+    # add answer to list
+    I0_list.append((R2, ans[I1] - ans[I2]))
 
-    # make N*N matrix which elements are 0
-    L = [[0 for i in range(N)] for j in range(N)]
-    U = [[0 for i in range(N)] for j in range(N)]
-    # 対角成分を1にする
-    for n in range(0, N):
-        U[n][n] = 1
+# write results to out_file
+with open(out_file, "wt") as fout:
+    digit = 6
+    enabled_digit = 10
 
-    for i in range(N):
-        L[i][0] = matrix[i][0] * U[i][i]
-    for i in range(1, N):
-        U[0][i] = matrix[0][i] / L[0][0]
-
-
-
-
-    return L, U
-
-def solve_wheatstone(lower, upper, step):
-    """ ホイートストンブリッジ回路をでとく
-    結果をタプルのリストで返す """
-    ans = []
-    for R2 in make_generator(lower, upper, step):
-        # solve Ax = b
-        # A: equation_matrix , x: (I1, I2, I3), b: (0, 0, E)
-
-        equation_matrix = ((R1 + R2 + R0,  -R0,          -R2      ),
-                          (-R0,            R3 + R4 + R0, -R4      ),
-                          (-R2,            -R4,           R2 + R4))
-        b = [0, 0, E]
-
-
-        ans.append((R2, 1))
-    return ans
-
-def out_results(results, out_file, digit = 6):
-    """ リストの出力 digitに有効桁数を指定　デフォルトで6にしている"""
-    with open(out_file, "wt") as f:
-        for iter in range(len(results)):
-            out_str = "R2 {0[0]:>{1}}R : I0 {0[1]:>{1}}A".format(results[iter], digit)
-            print(out_str, file = f)
+    for iter in I0_list:
+        I0_formatted = (str(iter[1]))[:enabled_digit]
+        out_str = f"R2 {iter[0]:>{digit}}R : I0 {I0_formatted:>{digit}}A"
+        print(out_str, file = fout)
