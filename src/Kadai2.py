@@ -26,15 +26,12 @@ def solve_simpson(x_start, x_end, N, func):
     h = (x_end - x_start) / (2 * N)
     x = x_start
 
-    for i in range(1, N - 1):
-        x += h
-        y_odd += func(x)
+    for i in range(1, N):
+        y_odd  += func(x_start + ((2 * i - 1) * h))
+        y_even += func(x_start + ((2 * i)     * h))
 
-        x += h
-        y_even += func(x)
 
-    x += h
-    y_odd += func(x)
+    y_odd += func(x_start + ((2 * N - 1) * h))
 
     return (h / 3) * (y0 + 4*y_odd + 2*y_even + y2N)
 
