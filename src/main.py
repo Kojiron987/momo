@@ -3,7 +3,7 @@ import  sys
 script, kadai = sys.argv
 
 
-elif kadai == 'kadai2':
+if kadai == 'kadai2':
 
     import Kadai2, math
 
@@ -30,6 +30,8 @@ elif kadai == 'kadai3':
 
     out_file1 = "../result/Kadai3_input.png"
     out_file2 = "../result/Kadai3_output.png"
+    out_file3 = "../result/Kadai3_in_and_output.png"
+
 
     v_init = 0.0
     t_start = 0.0
@@ -39,12 +41,15 @@ elif kadai == 'kadai3':
 
     t, v_in, v_out = Kadai3.solve_4d_runge_kutta(v_init, t_start, t_end, h, circuit)
 
+
+    Kadai3.save_graph(t, v_in, out_file1)
     Kadai3.plot_graph(t, v_in)
+
+    Kadai3.save_graph(t, v_out, out_file2)
     Kadai3.plot_graph(t, v_out)
 
     Kadai3.save_graph(t, v_in, out_file1)
-    Kadai3.save_graph(t, v_out, out_file2)
-
+    Kadai3.save_graph(t, v_out, out_file3)
 
 else:
     print("Invaild Option")

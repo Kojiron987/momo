@@ -17,7 +17,7 @@ def input_wave(t):
     t の少数点以下が0.5より少ない ...　10を返す
     t の少数点以下が0.5以上 ... 0を返す
     """
-    if x - int(t) < 0.5:
+    if t - int(t) < 0.5:
         return 10
     else:
         return 0
