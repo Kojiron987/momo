@@ -2,15 +2,20 @@ def circuit1(t, v):
     """ 回路1の微分方程式
     dv/dt = -v/RC + E/RC
     """
-    E = 10
     R = 50 * 1000
-    C = 200 * 10.0e-6
-
+    C = 5 * 10.0e-6
+    E = input_wave(t)
     return (-v + E) / (R * C)
 
 def circuit2(t, i):
     """ プログラムがあっているかの確認用回路 """
     return 1 - t
+
+def input_wave(x):
+    if x - int(x) < 0.5:
+        return 20
+    else:
+        return 0
 
 
 def solve_4d_runge_kutta(y0, x_start, x_end, h, equation):
@@ -21,27 +26,30 @@ def solve_4d_runge_kutta(y0, x_start, x_end, h, equation):
     h: 刻み値
     equation: 計算に使う回路"""
 
-    x = x_start
-    y = y0
 
     # リストに結果を格納
-    x_out = [x]
-    y_out = [y]
+    x_out = [x_start]
+    y_out = [y0]
 
-    while x < x_end:
 
+    time = [x_start + (h * i) for i in range(0, int((x_end - x_start) / h))]
+    y_input = [input_wave(i) for i in time]
+
+    y = y0
+    x = x_start
+
+    for x in time[1:]:
         k1 = h * equation(x, y)
         k2 = h * equation(x+(h/2), y+(k1/2))
         k3 = h * equation(x+(h/2), y+(k2/2))
         k4 = h * equation(x+h, y+k3)
 
         y = y + (1 / 6) * (k1 + 2*k2 + 2*k3 + k4)
-        x += h
 
-        x_out.append(x)
         y_out.append(y)
 
-    return x_out, y_out
+
+    return time, y_input, y_out
 
 def plot_graph(x_arr, y_arr):
 

@@ -41,18 +41,22 @@ elif kadai == 'kadai3':
 
     import Kadai3
 
-    out_file = "../result/Kadai3.png"
+    out_file1 = "../result/Kadai3_input.png"
+    out_file2 = "../result/Kadai3_output.png"
 
     v_init = 0.0
     t_start = 0.0
-    t_end = 2.0
-    h = 0.001
+    t_end = 40.0
+    h = 0.01
     circuit = Kadai3.circuit1
 
-    t, v = Kadai3.solve_4d_runge_kutta(v_init, t_start, t_end, h, circuit)
+    t, v_in, v_out = Kadai3.solve_4d_runge_kutta(v_init, t_start, t_end, h, circuit)
 
-    Kadai3.plot_graph(t, v)
-    Kadai3.save_graph(t, v, out_file)
+    Kadai3.plot_graph(t, v_in)
+    Kadai3.plot_graph(t, v_out)
+
+    Kadai3.save_graph(t, v_in, out_file1)
+    Kadai3.save_graph(t, v_out, out_file2)
 
 
 else:

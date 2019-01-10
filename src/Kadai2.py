@@ -10,20 +10,22 @@ def func1(x):
 def func2(x):
     """ 課題２に使う関数 """
     return math.cos(x)
-
+def func3(x):
+    """検算用"""
+    return math.sin(x)
 
 def solve_simpson(x_start, x_end, N, func):
     """ 1/3シンプソンの公式を使い、funcの x_start ~ x_end  までの積分を解く
     Nは、分割数を表す"""
-
-    h = (x_end - x_start) / (2 * N)
-    x = x_start
 
     y0 = func(x_start)
     y_odd = 0
     y_even = 0
     y2N = func(x_end)
 
+    h = (x_end - x_start) / (2 * N)
+    x = x_start
+    
     for i in range(1, N - 1):
         x += h
         y_odd += func(x)
