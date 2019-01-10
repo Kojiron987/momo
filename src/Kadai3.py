@@ -11,8 +11,13 @@ def circuit2(t, i):
     """ プログラムがあっているかの確認用回路 """
     return 1 - t
 
-def input_wave(x):
-    if x - int(x) < 0.5:
+def input_wave(t):
+    """ 入力波形を作る
+    周期: 1秒
+    t の少数点以下が0.5より少ない ...　10を返す
+    t の少数点以下が0.5以上 ... 0を返す
+    """
+    if x - int(t) < 0.5:
         return 10
     else:
         return 0

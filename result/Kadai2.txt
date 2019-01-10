@@ -1,2 +1,2 @@
-func1: 0
-func2: 100000
+func1: 10
+func2: 100

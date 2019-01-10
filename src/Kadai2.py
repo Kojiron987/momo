@@ -25,20 +25,18 @@ def solve_simpson(x_start, x_end, N, func):
 
     h = (x_end - x_start) / (2 * N)
     x = x_start
-
+    # 1 ~ N - 1 までのシグマの計算
     for i in range(1, N):
         y_odd  += func(x_start + ((2 * i - 1) * h))
         y_even += func(x_start + ((2 * i)     * h))
 
-
+    # 奇数倍の方は、N まで計算する
     y_odd += func(x_start + ((2 * N - 1) * h))
 
     return (h / 3) * (y0 + 4*y_odd + 2*y_even + y2N)
 
 def find_threshold(xmin, xmax, func):
     """ v, wの差の絶対値が threshold 以下になる分割数 'N' を10の倍数ごとに探す関数 """
-    # BUG: func1だと、find_threshold関数で Nが100000になっても誤差がthreshold
-    # 以下に収まらず、hが増え続けるため誤差が大きくなり、無限ループにはまってしまう
 
     N = 10
     while True:
