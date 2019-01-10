@@ -19,13 +19,13 @@ def solve_simpson(x_start, x_end, N, func):
     Nは、分割数を表す"""
 
     y0 = func(x_start)
-    y_odd = 0
-    y_even = 0
+    y_odd = 0.0
+    y_even = 0.0
     y2N = func(x_end)
 
     h = (x_end - x_start) / (2 * N)
     x = x_start
-    
+
     for i in range(1, N - 1):
         x += h
         y_odd += func(x)

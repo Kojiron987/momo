@@ -20,24 +20,28 @@ def input_wave(x):
 
 def solve_4d_runge_kutta(y0, x_start, x_end, h, equation):
     """ 4次のルンゲ・クッタ法で微分方程式を解く
-    y0: x = tminのときの値
+    y0: x = x_start のときの値
     x_start: xの初期値
     x_end: どこまで計算するか
     h: 刻み値
-    equation: 計算に使う回路"""
+    equation: 計算に使う回路(関数)"""
 
 
     # リストに結果を格納
     x_out = [x_start]
     y_out = [y0]
 
-
+    # 時間tをリストにする
     time = [x_start + (h * i) for i in range(0, int((x_end - x_start) / h))]
+
+    # 入力の矩形波を作る
     y_input = [input_wave(i) for i in time]
 
     y = y0
     x = x_start
 
+    # 4次のルンゲクッタを解く
+    # x = x_start のときのyはすでに計算済み
     for x in time[1:]:
         k1 = h * equation(x, y)
         k2 = h * equation(x+(h/2), y+(k1/2))
@@ -48,7 +52,7 @@ def solve_4d_runge_kutta(y0, x_start, x_end, h, equation):
 
         y_out.append(y)
 
-
+    # 時間t, 入力波形、出力波形をリストにして返す
     return time, y_input, y_out
 
 def plot_graph(x_arr, y_arr):
