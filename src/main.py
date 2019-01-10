@@ -23,12 +23,12 @@ elif kadai == 'kadai2':
     out_file = "../result/Kadai2.txt"
 
     #bug
-    #xmin = -2
-    #xmax = 3
-    #func = Kadai2.func1
-    #result1 = Kadai2.find_threshold(xmin, xmax, func)
+    xmin = -2
+    xmax = 3
+    func = Kadai2.func1
+    result1 = Kadai2.find_threshold(xmin, xmax, func)
 
-    result1 = 0
+    # result1 = 0
 
     x_start = 0
     x_end = math.pi / 2
@@ -46,7 +46,7 @@ elif kadai == 'kadai3':
 
     v_init = 0.0
     t_start = 0.0
-    t_end = 40.0
+    t_end = 5.0
     h = 0.01
     circuit = Kadai3.circuit1
 

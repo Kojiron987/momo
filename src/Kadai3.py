@@ -3,7 +3,7 @@ def circuit1(t, v):
     dv/dt = -v/RC + E/RC
     """
     R = 50 * 1000
-    C = 5 * 10.0e-6
+    C = 2 * 1.0e-6
     E = input_wave(t)
     return (-v + E) / (R * C)
 
@@ -13,7 +13,7 @@ def circuit2(t, i):
 
 def input_wave(x):
     if x - int(x) < 0.5:
-        return 20
+        return 10
     else:
         return 0
 
