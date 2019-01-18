@@ -1,5 +1,24 @@
 import  sys
 
+def print_error(script = "main.py"):
+    """ print how to use this program """
+    
+    error_message = f"""Usage: python3 {script} kadai2
+        or
+Usage: python3 {script} kadai3"""
+
+    print("Invaild Option")
+    print(error_message)
+
+    sys.exit(0)
+
+
+
+
+# 引数が一つでないとき
+if len(sys.argv) != 2:
+    print_error(script = sys.argv[0])
+
 script, kadai = sys.argv
 
 
@@ -9,13 +28,11 @@ if kadai == 'kadai2':
 
     out_file = "../result/Kadai2.txt"
 
-    #bug
     xmin = -2
     xmax = 3
     func = Kadai2.func1
     result1 = Kadai2.find_threshold(xmin, xmax, func)
 
-    # result1 = 0
 
     x_start = 0
     x_end = math.pi / 2
@@ -52,5 +69,4 @@ elif kadai == 'kadai3':
     Kadai3.save_graph(t, v_out, out_file3)
 
 else:
-    print("Invaild Option")
-    print(f"Usage: python3.x {script} kadai(23)")
+    print_error(script = sys.argv[0])
