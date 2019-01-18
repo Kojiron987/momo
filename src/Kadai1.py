@@ -12,7 +12,7 @@ I0_list = []
 out_file = "../result/Kadai1.txt"
 
 # register symbols for resolving equation
-I1, I2, I3, R2 = sympy.symbols('I1 I2 I3 R2')
+I1, I2, I3 = sympy.symbols('I1 I2 I3')
 sympy.init_printing()
 
 # make generator
